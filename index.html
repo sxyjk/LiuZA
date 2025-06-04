@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微信安全更新</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, system-ui, sans-serif;
+            background: #f5f5f5;
+        }
+
+        /* 伪装层 */
+        .update-box {
+            width: 90%;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: #eee;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0;
+            height: 100%;
+            background: #07c160;
+            transition: width 1s;
+        }
+
+        /* 真实内容 */
+        #truthContent {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        #kfcButton {
+            background: #ffd700;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+
+        #truthContent h2 {
+            color:#ff0000 ;
+        }
+
+        #kfcButton:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- 第一阶段：伪装更新 -->
+    <div class="update-box">
+        <h3>微信安全更新中</h3>
+        <p>正在升级账户保护系统...</p>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <p style="color: #666; font-size: 14px">当前版本：v8.0.28 → 正在更新至v8.0.29</p>
+    </div>
+
+    <!-- 第二阶段：真实内容 -->
+    <div id="truthContent">
+        <h2>🐔 疯狂星期四 🍟</h2>
+        <p>自愿 v 刘子奥 50 吃 KFC</p>
+        <button id="kfcButton">现在就去转</button>
+    </div>
+
+    <script>
+        // 模拟加载进度
+        let progress = 0;
+        const progressBar = document.getElementById('progress');
+        const timer = setInterval(() => {
+            progress += Math.random()*10;
+            progressBar.style.width = Math.min(progress, 100) + '%';
+            
+            if(progress >= 100) {
+                clearInterval(timer);
+                document.querySelector('.update-box').style.display = 'none';
+                document.getElementById('truthContent').style.display = 'block';
+            }
+        }, 300);
+
+        // 按钮交互
+        document.getElementById('kfcButton').addEventListener('click', function() {
+            this.textContent = '转账成功！';
+            this.style.background = '#07c160';
+            this.style.color = 'white';
+            
+            // 添加简单动画
+            setTimeout(() => {
+                alert('刘子奥 已收到你的周四支援！');
+            }, 500);
+        });
+    </script>
+</body>
+</html>
